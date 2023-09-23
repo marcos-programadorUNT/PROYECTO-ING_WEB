@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+	 	<form th:action="@{/venta-pasajero}" id="form">
+		<div class="row card">
+			<div class="col-10 mx-auto text-center py-3 h6">
+			RUTA DE LA VENTA DE PASAJE
+			</div>
+			<div class="col-10 mx-auto ">
+				<div class="row text-center">
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+						<div class="">Seleccionar Bus</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						<div class="">Seleccionar Asiento</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-user fa-3x"></i></div>
+						<div class="">Registrar Pasajeros</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+						<div class="">Realizar Pago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<!--<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/venta-bus}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>-->
+				</div>
+				<div class="text-center h5">
+					Seleccionar Asientos
+				</div>
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/compraBoletos/verPasajeros/}+${idSeleccion}"> Siguiente <i class="icon fa-solid fa-caret-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3 text-center">
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: green"></div>
+				<div class="">Libres</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: red"></div>
+				<div class="">Vendidos</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: orange"></div>
+				<div class="">Reservados</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: blue"></div>
+				<div class="">No Disponibles</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: gray"></div>
+				<div class="">En mi carrito</div>
+			</div>
+		</div>
+		<div class="row my-3 color-borde my-2">
+			<div class="col-12 py-1 bg-fondo text-center h6">
+					REQUISITOS PARA ABORDAR
+				</div>
+			<div class="col-12 py-1">
+				<ol>
+					<li>
+					- DNI, pasaporte o carnet de extranjería.
+					</li>
+					<li>
+					- Boleto de viaje impreso o virtual.
+					</li>
+					<li>
+					- Permiso de viaje notarial para menores de edad NO acompañados de sus padres.
+					</li>
+					<li>
+					- Carnet de vacunación físico o virtual:
+					+ 12 años (2 dosis)
+					+ 18 años (3 dosis)
+					</li>
+					<li>
+					- Mascarilla KN95 o doble mascarilla obligatoria.
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="row card my-0 py-2">
+			<div class="row">
+			<th:block th:if="${pisosAsientosIda!=null && cronogramaIda!=null}">
+				<div class="col-md-6">
+					<table class="table" id="tabla_ida">
+						<thead class="bg-fondo">
+						<tr>
+							<th><i class=" icon fa-solid fa-arrow-up "></i> BUS DE IDA: [[${cronogramaIda.ruta.lugarOrigen.descripcion}]] - [[${cronogramaIda.ruta.lugarDestino.descripcion}]]</th>
+						</tr>
+						</thead>
+						<thead>
+						<tr>
+							<th class="text-center" th:text="${cronogramaIda.fechaSalida}+' - '+${cronogramaIda.horaSalida}"></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="row my-0 py-0 color-borde">
+											<div>
+												<div th:each="paIda :${pisosAsientosIda}">
+													<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+														[[${paIda[1]}]]: [[${paIda[2]}]]
+													</div>
+													<div class="col-12 ">
+														<div class="row">
+															<th:block th:each="asientosIda :${cronogramaIda.bus.asientos}">
+																<th:block th:if="${asientosIda.plano.idPlano==paIda[0]}">
+																	<th:block th:if="${asientosIda.plano.idPlano==1}">
+																		<th:block th:if="${asientosIda.estado.equals('disponible')}">
+																			<div class="col-4 text-center">
+																				<div   th:id="${asientosIda.idAsiento}"  class="asiento disponible"  th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosIda.idAsiento}" th:tipoCronograma="ida"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosIda.idAsiento}"></th:block></div>
+																				<div style="font-size:0.9em">S/.[[${asientosIda.costo*asientosIda.descuento}]]</div>
+																			</div>
+																		</th:block>
+																		<th:block th:if="${asientosIda.estado.equals('reservado')}">
+																			<div class="col-4 text-center">
+																				<div   th:id="${asientosIda.idAsiento}"  class="asiento reservado" th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosIda.idAsiento}" th:tipoCronograma="ida"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosIda.idAsiento}"></th:block></div>
+																				<div style="font-size:0.9em">S/.[[${asientosIda.costo*asientosIda.descuento}]]</div>
+																			</div>
+																		</th:block>
+
+																	</th:block>
+																	<th:block th:if="${asientosIda.plano.idPlano==2}">
+																		<th:block th:if="${asientosIda.estado.equals('disponible')}">
+																			<div class="col-4 text-center">
+																				<div   th:id="${asientosIda.idAsiento}"   class="asiento disponible" th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosIda.idAsiento}" th:tipoCronograma="ida"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosIda.idAsiento}"></th:block></div>
+																				<div style="font-size:0.9em">S/.[[${asientosIda.costo*asientosIda.descuento}]]</div>
+																			</div>
+																		</th:block>
+																		<th:block th:if="${asientosIda.estado.equals('reservado')}">
+																			<div class="col-4 text-center">
+																				<div   th:id="${asientosIda.idAsiento}"  class="asiento reservado" th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosIda.idAsiento}" th:tipoCronograma="ida"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosIda.idAsiento}"></th:block></div>
+																				<div style="font-size:0.9em">S/.[[${asientosIda.costo*asientosIda.descuento}]]</div>
+																			</div>
+																		</th:block>
+																	</th:block>
+																</th:block>
+															</th:block>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="row color-borde">
+											<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+												MIS ASIENTOS
+											</div>
+											<div class="col-12 mx-auto border py-3" >
+												<div class="row" id="contenedor_ida">
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+				<th:block th:if="${pisosAsientosVuelta!=null && cronogramaVuelta!=null}">
+					<div class="col-md-6">
+						<table class="table" id="tabla_retorno">
+							<thead class="bg-fondo">
+							<tr>
+								<th><i class=" icon fa-solid fa-arrow-down "></i> BUS DE RETORNO: [[${cronogramaVuelta.ruta.lugarOrigen.descripcion}]] - [[${cronogramaVuelta.ruta.lugarDestino.descripcion}]]</th>
+							</tr>
+							</thead>
+							<thead>
+							<tr>
+								<th class="text-center" th:text="${cronogramaVuelta.fechaSalida}+' - '+${cronogramaVuelta.horaSalida}"></th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="row my-0 py-0 color-borde">
+												<div >
+													<div th:each="paVuelta :${pisosAsientosVuelta}">
+														<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+															[[${paVuelta[1]}]]: [[${paVuelta[2]}]]
+														</div>
+														<div class="col-12 ">
+															<div class="row">
+																<th:block th:each="asientosVuelta :${cronogramaVuelta.bus.asientos}">
+																	<th:block th:if="${asientosVuelta.plano.idPlano==paVuelta[0]}">
+																		<th:block th:if="${asientosVuelta.plano.idPlano==1}">
+																			<th:block th:if="${asientosVuelta.estado.equals('disponible')}">
+																				<div class="col-4 text-center">
+																					<div   th:id="${asientosVuelta.idAsiento}"  class="asiento disponible"  th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosVuelta.idAsiento}" th:tipoCronograma="retorno"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosVuelta.idAsiento}"></th:block></div>
+																					<div style="font-size:0.9em">S/.[[${asientosVuelta.costo*asientosVuelta.descuento}]]</div>
+																				</div>
+																			</th:block>
+																			<th:block th:if="${asientosVuelta.estado.equals('reservado')}">
+																				<div class="col-4 text-center">
+																					<div   th:id="${asientosVuelta.idAsiento}"  class="asiento reservado" th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosVuelta.idAsiento}" th:tipoCronograma="retorno"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosVuelta.idAsiento}"></th:block></div>
+																					<div style="font-size:0.9em">S/.[[${asientosVuelta.costo*asientosVuelta.descuento}]]</div>
+																				</div>
+																			</th:block>
+																		</th:block>
+																		<th:block th:if="${asientosVuelta.plano.idPlano==2}">
+																			<th:block th:if="${asientosVuelta.estado.equals('disponible')}">
+																				<div class="col-4 text-center">
+																					<div   th:id="${asientosVuelta.idAsiento}"  class="asiento disponible"  th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosVuelta.idAsiento}" th:tipoCronograma="retorno"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosVuelta.idAsiento}"></th:block></div>
+																					<div style="font-size:0.9em">S/.[[${asientosVuelta.costo*asientosVuelta.descuento}]]</div>
+																				</div>
+																			</th:block>
+																			<th:block th:if="${asientosVuelta.estado.equals('reservado')}">
+																				<div class="col-4 text-center">
+																					<div   th:id="${asientosVuelta.idAsiento}"  class="asiento reservado" th:idSeleccion="${idSeleccion}" th:idAsiento="${asientosVuelta.idAsiento}" th:tipoCronograma="retorno"><i class="icon fa-solid fa-tablet fa-3x"></i><br><th:block th:text="${asientosVuelta.idAsiento}"></th:block></div>
+																					<div style="font-size:0.9em">S/.[[${asientosVuelta.costo*asientosVuelta.descuento}]]</div>
+																				</div>
+																			</th:block>
+																		</th:block>
+																	</th:block>
+																</th:block>
+
+
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="row color-borde">
+												<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+													MIS ASIENTOS
+												</div>
+												<div class="col-12 mx-auto border  py-3">
+													<div class="row" id="contenedor_retorno">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</th:block>
+			</div>
+		</div>
+		</form>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script>
+			$(function () {
+				//FUNCIONA PARA ASIENTOS DE IDA
+		        $("table#tabla_ida div.asiento").click(function(event){
+					console.log(this.getAttribute('idSeleccion'));
+					console.log(this.getAttribute('idAsiento'));
+					console.log(this.getAttribute('tipoCronograma'));
+					if(!escogidoAsiento("ida",this.id)){
+						agregarAsientoLista(this.getAttribute('idSeleccion'),
+								this.getAttribute('idAsiento'),
+								this.getAttribute('tipoCronograma')
+						)
+						//agregarAsiento("retorno",this.id)
+					}else{
+						eliminarAsiento("ida",this.id)
+						eliminarAsientoLista(this.getAttribute('idSeleccion'),
+								this.getAttribute('idAsiento')
+						)
+					}
+		          });
+				
+		      //FUNCIONA PARA ASIENTOS DE RETORNO
+		        $("table#tabla_retorno div.asiento").click(function(event){
+					//console.log(this.id);
+					console.log(this.getAttribute('idSeleccion'));
+					console.log(this.getAttribute('idAsiento'));
+					console.log(this.getAttribute('tipoCronograma'));
+					if(!escogidoAsiento("retorno",this.id)){
+						agregarAsientoLista(this.getAttribute('idSeleccion'),
+								this.getAttribute('idAsiento'),
+								this.getAttribute('tipoCronograma')
+						)
+						//agregarAsiento("retorno",this.id)
+
+					}else{
+						eliminarAsiento("retorno",this.id)
+						eliminarAsientoLista(this.getAttribute('idSeleccion'),
+								this.getAttribute('idAsiento')
+						)
+					}
+		          });
+		      
+		        $("#form").submit(function(event) {
+		        	if($("#contenedor_ida div")){
+			        	if(!$("#contenedor_ida div").length>0){
+							alert("Se necesita almenos un asiento de Ida seleccionado");
+				            event.preventDefault();
+			        	}
+		        	}
+		        	if($("#contenedor_retorno div")){
+			        	if(!$("#contenedor_retorno div").length>0){
+							alert("Se necesita almenos un asiento de Retorno seleccionado");
+				            event.preventDefault();
+			        	}
+		        	}
+		        	return true;
+		          });
+		      });
+			
+			function escogidoAsiento(tipo,numero){
+				if($("#contenedor_"+tipo+" div#"+numero).length>0){ 
+					return true;
+				}else{
+					return false;
+				}
+			}
+			
+			function agregarAsiento(tipo,numero){
+				$("#contenedor_"+tipo).html($("#contenedor_"+tipo).html()+
+				`<div class="col-3 text-center" id="${numero}">
+					<div class="asiento escogido" >
+						<i class="icon fa-solid fa-tablet fa-3x"></i> 
+						<br>
+						${numero}
+					</div>
+				</div>`
+				);
+				$("table#tabla_"+tipo+" div#"+numero).addClass("escogido");
+				
+				
+				
+			}
+			
+			function eliminarAsiento(tipo,numero){
+				$("#contenedor_"+tipo+" div#"+numero).remove();
+				$("table#tabla_"+tipo+" div#"+numero).removeClass("escogido");
+				$("table#tabla_"+tipo+" div#"+numero).addClass("disponible");
+			}
+			
+			function agregarAsientoLista(idSeleccion,idAsiento,tipoCronograma)
+			{
+				//console.log("Agregar seleccion "+idSeleccion+"Agregar asiento "+idAsiento);
+				
+				//console.log("Agregar asiento "+idAsiento+"otra "+otra);
+				/*
+				$.ajax({
+					url : "/compraBoletos/agregarAsientoLista/"+idSeleccion+"/"+idAsiento+"/"+tipoCronograma,
+					dataType : "json",
+					data : {
+						idSeleccion : idSeleccion,
+						idAsiento : idAsiento,
+						tipoCronograma: tipoCronograma
+						
+					},
+				});
+				*/
+
+				$.getJSON("/compraBoletos/agregarAsientoLista/", {
+					idSeleccion : idSeleccion,
+					idAsiento : idAsiento,
+					tipoCronograma: tipoCronograma,
+					ajax : 'true'
+				}, function(data) {
+					if(data.mensaje==="El asiento "+idAsiento+" no se encuentra disponible")
+					{
+						alert(data.mensaje)
+					}
+					else
+					{
+						alert(data.mensaje)
+						agregarAsiento(tipoCronograma,idAsiento)
+					}
+
+
+				});
+			}
+
+
+			
+			function eliminarAsientoLista(idSeleccion,idAsiento)
+			{
+				$.ajax({
+					url : "/compraBoletos/eliminarAsientoLista/"+idSeleccion+"/"+idAsiento,
+					dataType : "json",
+					data : {
+						idSeleccion : idSeleccion,
+						idAsiento : idAsiento
+
+					},
+				});
+				
+			}
+			
+		</script>
+	</th:block>
+	
+</body>
+</html>

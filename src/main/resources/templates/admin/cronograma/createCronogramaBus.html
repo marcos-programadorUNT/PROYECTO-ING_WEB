@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+<meta charset="ISO-8859-1">
+<!-- <title th:text="${titulo}"></title> -->
+<title>[[${titulo}]]</title>
+<link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+<link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+
+<th:block layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+	<div layout:fragment="page-title">
+     </div>
+
+     <div layout:fragment="page-content">
+		<div class="card">
+		  <div class="card-header card-encabezado">
+		    Crear cronograma a bus [[${bus.nroPlaca}]]
+		  </div>
+		  <div class="card-body">
+			<form th:action="@{/cronogramaSave/}+${bus.idBus}" th:object="${cronograma_viaje}" method="post">
+			  <input type="hidden" class="form-control" th:field="*{bus.idBus}">
+			  <div class="mb-3">
+			    <label class="form-label">Ruta</label>
+			   	<select class="form-select" th:field="*{ruta.idRuta}">
+					 <option value="0" selected>- Seleccione Ruta -</option> 
+					 <div th:each="ruta :${rutas}">
+					 	<option th:value="${ruta.idRuta}" >[[${ruta.lugarOrigen.descripcion}]]-[[${ruta.lugarDestino.descripcion}]]</option> 
+					 </div>
+				 </select>
+			  </div>
+			  <div class="mb-3">
+			    <label class="form-label">Fecha Salida</label>
+			    <input type="date" id="fecha_salida" class="form-control" th:field="*{fechaSalida}">
+			  </div>
+			  <div class="mb-3">
+			    <label class="form-label">Hora Salida</label>
+			    <input type="text" class="form-control" th:field="*{horaSalida}">
+			  </div>
+			  <div class="mb-3">
+			    <label class="form-label">Fecha Llegada</label>
+			    <input type="date" id="fecha_llegada" class="form-control" th:field="*{fechaLlegada}">
+			  </div>
+			  <div class="mb-3">
+			    <label class="form-label">Hora Aprox Llegada</label>
+			    <input type="text" class="form-control" th:field="*{horaAproxLlegada}">
+			  </div>
+			  
+			  <br>
+			  <button type="submit" class="btn btn-primary">Agregar</button>
+			  
+			  <br>
+			  
+			</form>
+		  </div>
+		</div>
+	
+	     
+     
+       
+        
+     </div>
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+	
+	<script th:src="@{/assets/select/bootstrap-select.min.js}"></script>
+	<script type="text/javascript">
+
+		var dateHoy = new Date();
+		dateHoy.setDate(dateHoy.getDate()-1);
+		console.log(dateHoy)
+
+		let dateOtro=new Date();
+		dateOtro.setFullYear(dateOtro.getFullYear()+1);
+		console.log(dateOtro)
+
+		fecha_salida=document.getElementById("fecha_salida")
+		fecha_salida.min=dateHoy.toISOString().split("T")[0]
+		fecha_salida.value=dateHoy.toISOString().split("T")[0]
+		fecha_salida.max=dateOtro.toISOString().split("T")[0]
+
+		fecha_llegada=document.getElementById("fecha_llegada")
+		fecha_llegada.min=dateHoy.toISOString().split("T")[0]
+		fecha_llegada.max=dateOtro.toISOString().split("T")[0]
+
+	</script>
+	
+</th:block>
+</body>
+</html>

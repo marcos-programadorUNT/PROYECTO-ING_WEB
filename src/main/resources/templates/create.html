@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+<meta charset="ISO-8859-1">
+<!-- <title th:text="${titulo}"></title> -->
+<title>[[${titulo}]]</title>
+<link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+<link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+
+<th:block layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+	<div layout:fragment="page-title">
+    </div>
+
+     <div layout:fragment="page-content">
+	     <form action="@{/admin/busSave}" method="POST">
+	     <div class="row">
+	     	<div class="col-md-2"></div>
+	     	
+		     		<div class="col-md-3">
+		     		<div class="row">
+			     		<div class="card">
+						  <div class="card-header card-encabezado">
+						    Pisos
+						  </div>
+						  <div class="card-body">
+							  <div class="mb-3">
+							    <label class="form-label">Cantidad de pisos</label>
+							    <select  id="nroPisos" onchange="pisos(this);" class="form-select" name="idPlano">
+							        <option value="0">Seleccionar</option>
+							        <div th:each="piso :${pisos}">
+							        	<option value="${piso.idPiso}" th:text="${piso.descripcion}"></option>
+							        </div>
+						        </select>
+							  </div>
+						   </div>
+						  </div>
+		     		 </div>
+		     		 
+		     		 <div class="row">
+			     		<div class="card">
+						  <div class="card-header card-encabezado">
+						    Tipo de asientos
+						  </div>
+						  <div class="card-body">
+							  <div class="mb-3">
+							     <div id="contenedor_ta1"></div><br>
+						  		<div id="contenedor_ta2"></div>
+							  </div>
+						   </div>
+						  </div>
+		     		 </div>
+		     		 
+		     		 <div class="row">
+			     		<div class="card">
+						  <div class="card-header card-encabezado">
+						    Precio de asientos
+						  </div>
+						  <div class="card-body">
+							  <div class="mb-3">
+							    <div id="contenedor_pa1"></div>
+								<div id="contenedor_pa2"></div>
+							  </div>
+						   </div>
+						  </div>
+		     		 </div>
+		     	</div>
+		     	
+		     <div class="col-md-5">
+	     			<div id="contenedor_bus"></div>
+	     	 </div>
+	     	<div class="col-md-2"></div>
+	     </div>
+	    
+	     <div class="row">
+	     	
+	     		asadasd
+	     	
+	     </div>
+	     </form>
+     
+     </div>
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script th:src="@{/assets/select/bootstrap-select.min.js}"></script>
+	<script type="text/javascript">
+	
+	function pisos(nroPisos) 
+	{
+		
+		contenedor_ta1 = document.getElementById("contenedor_ta1");
+		contenedor_ta2 = document.getElementById("contenedor_ta2");
+		if($('#contenedor_derivado_ta1'))
+			$('#contenedor_derivado_ta1').remove();
+		if($('#contenedor_derivado_ta2'))
+			$('#contenedor_derivado_ta2').remove();
+		if($('#contenedor_derivado_pa1'))
+			$('#contenedor_derivado_pa1').remove();
+		if($('#contenedor_derivado_pa2'))
+			$('#contenedor_derivado_pa2').remove();
+		
+		if(nroPisos.value=="1"){
+			contenedor_ta1.innerHTML +=`
+				<div id="contenedor_derivado_ta1">
+					<label for="disabledSelect" class="form-label">Primer piso</label>
+				    <select  class="form-select" id="gradosPrimerPiso" onchange="precioPiso1(this);bus();" name="idTipoAsiento[]" required>
+					    <option value="0">Seleccionar</option>
+					    <div th:each="plano :${planos}">
+			        		<option value="${plano.idPlano}" th:text="${plano.descripcion}"></option>
+			        	</div>
+				    </select>
+			    </div>`;
+		} 
+		else if(nroPisos.value=="2")
+		{
+			contenedor_ta1.innerHTML +=`
+				<div id="contenedor_derivado_ta1">
+					<label for="disabledSelect" class="form-label">Primer piso</label>
+				    <select  class="form-select" id="gradosPrimerPiso" onchange="precioPiso1(this);bus();" name="idTipoAsiento[]" required>
+				    	<option value="0">Seleccionar</option>
+				    	<div th:each="plano :${planos}">
+		        			<option value="${plano.idPlano}" th:text="${plano.descripcion}"></option>
+		        		</div>
+				    </select>
+			    </div>
+			    
+				`;
+			contenedor_ta2.innerHTML +=`
+				<div id="contenedor_derivado_ta2">
+					<label for="disabledSelect" class="form-label">Segundo piso</label>
+				    <select  class="form-select" id="gradosSegundoPiso" onchange="precioPiso2(this);bus();" name="idTipoAsiento[]" required>
+					    <option value="0">Seleccionar</option>
+					    <div th:each="plano :${planos}">
+	        				<option value="${plano.idPlano}" th:text="${plano.descripcion}"></option>
+	        			</div>
+				    </select>
+			    </div>
+				`;
+		}
+		
+		
+		
+		//console.log(nroPisos.value);	
+	}
+	
+	function precioPiso1(grados) 
+	{
+		//console.log(pisos);	
+		contenedor_pa1 = document.getElementById("contenedor_pa1");
+		if($('#contenedor_derivado_pa1'))
+			$('#contenedor_derivado_pa1').remove();
+		switch(grados.value)
+		{
+			case "1": 
+				nombreGrado="140 grados";
+				break;
+			case "2": 
+				nombreGrado="160 grados";
+				break;
+			case "3": 
+				nombreGrado="180 grados";
+				break;
+		}
+		//console.log(nombreGrado);
+		
+			contenedor_pa1.innerHTML +=`
+				<div id="contenedor_derivado_pa1">
+				    <label for="disabledTextInput" class="form-label">Precio de asiento ${nombreGrado} piso 1</label>
+				    <input type="text" class="form-control"  name="precioPiso[]">
+			    </div>
+				`;
+	}
+	
+	function precioPiso2(grados) 
+	{
+		//console.log(pisos);	
+		contenedor_pa2 = document.getElementById("contenedor_pa2");
+		if($('#contenedor_derivado_pa2'))
+			$('#contenedor_derivado_pa2').remove();
+		switch(grados.value)
+		{
+			case "1": 
+				nombreGrado="140 grados";
+				break;
+			case "2": 
+				nombreGrado="160 grados";
+				break;
+			case "3": 
+				nombreGrado="180 grados";
+				break;
+		}
+		//console.log(nombreGrado);
+		
+			contenedor_pa2.innerHTML +=`
+				<div id="contenedor_derivado_pa2">
+				    <label for="disabledTextInput" class="form-label">Precio de asiento ${nombreGrado} piso 2</label>
+				    <input type="text" class="form-control" name="precioPiso[]">
+			    </div>`;
+	}
+	
+	function bus()
+	{
+		if($('#contenedor_derivado_bus'))
+			$('#contenedor_derivado_bus').remove();
+		
+		if($('#gradosPrimerPiso'))
+		{
+			gradosPrimerPiso=$('#gradosPrimerPiso').val();
+			switch(gradosPrimerPiso)
+			{
+			  case "1":
+				 gradosPrimerPiso="140";
+				 break;
+			  case "2":
+				gradosPrimerPiso="160";
+				break;
+			  case "3":
+				gradosPrimerPiso="180";
+				break;
+				  
+			}
+		}
+			
+		else
+			gradosPrimerPiso=null;
+		if($('#gradosSegundoPiso'))
+		{
+			gradosSegundoPiso=$('#gradosSegundoPiso').val();
+			switch(gradosSegundoPiso)
+			{
+			  case "1":
+				 gradosSegundoPiso="140";
+				 break;
+			  case "2":
+				 gradosSegundoPiso="160";
+				break;
+			  case "3":
+				 gradosSegundoPiso="180";
+				break;
+				  
+			}
+		}
+		else
+			gradosSegundoPiso=null;
+		if($('#nroPisos'))
+			nroPisos=$('#nroPisos').val();
+		else
+			nroPisos=null;
+		
+		contenedor_bus = document.getElementById("contenedor_bus");
+		console.log(nroPisos+" "+gradosPrimerPiso+" "+gradosSegundoPiso);
+		
+		
+		if(nroPisos=="1" && gradosPrimerPiso!=null && gradosSegundoPiso==null)
+		{
+			/*
+			contenedor_bus.innerHTML +=`
+				<div id="contenedor_derivado_bus">
+					<div th:insert="bus/soloDisenios/"+nroPisos+"piso-"+gradosPrimerPiso+":: body"></div>
+			    </div>
+				`;
+			*/
+				
+				
+		}
+		else if (nroPisos=="2" && gradosPrimerPiso!=null && gradosSegundoPiso!=null)
+		{
+			/*
+			contenedor_bus.innerHTML +=`
+				<div id="contenedor_derivado_bus">
+				<div th:insert="bus/soloDisenios/2pisos-160-180 :: body"></div>
+					
+			    </div>
+				`;
+			*/
+			
+			if(gradosPrimerPiso=="160" && gradosSegundoPiso=="140")
+			{
+				
+				contenedor_bus.innerHTML +=`
+					
+				<div id="contenedor_derivado_bus">
+					<div class="row my-0 py-0 color-borde">
+					<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+						PISO 1: SOFA CAMA 160 grados</div>
+					<div class="col-12 ">
+						<div class="row">
+							<div class="col-4 text-center">
+								<div id="1" class="colorAsiento asiento asiento">
+									<i class="fas fa-chair"></i><br>1
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="2" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>2
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="3" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>3
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="4" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>4
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="5" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>5
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="6" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>6
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="7" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>7
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="8" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>8
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="9" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>9
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="10" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>10
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="11" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>11
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="12" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>12
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row my-0 py-0 color-borde">
+				<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+					PISO 2: SEMI CAMA 140 grados</div>
+				<div class="col-12">
+					<div class="row">
+						<div class="col-3 text-center ">
+							<div id="13" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>13
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="14" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>14
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="15" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>15
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="16" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>16
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="17" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>17
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="18" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>18
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="19" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>19
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="20" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>20
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="21" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>21
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="22" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>22
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="23" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>23
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="24" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>24
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="25" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>25
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="26" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>26
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="27" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>27
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="28" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>28
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="29" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>29
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="30" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>30
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="31" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>31
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="32" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>32
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="33" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>33
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="34" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>34
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="35" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>35
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>36
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>37
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>38
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>39
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>40
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>41
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>42
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>43
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>44
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>45
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>46
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>47
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>48
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>49
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>50
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>51
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>52
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>53
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>54
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>55
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="36" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>56
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+					`;
+				
+				
+				
+				
+				
+			} else if(gradosPrimerPiso=="160" && gradosSegundoPiso=="160")
+			
+			{
+				
+				contenedor_bus.innerHTML +=`
+					<div id="contenedor_derivado_bus">
+					<div class="row my-0 py-0 color-borde">
+					<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+						PISO 1: SOFA CAMA 160 grados</div>
+					<div class="col-12 ">
+						<div class="row">
+							<div class="col-4 text-center">
+								<div id="1" class="colorAsiento asiento asiento">
+									<i class="fas fa-chair"></i><br>1
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="2" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>2
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="3" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>3
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="4" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>4
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="5" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>5
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="6" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>6
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="7" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>7
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="8" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>8
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="9" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>9
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="10" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>10
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="11" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>11
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="12" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>12
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row my-0 py-0 color-borde">
+					<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+						PISO 2: SEMI CAMA 160 grados</div>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-3 text-center ">
+								<div id="13" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>13
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="14" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>14
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="15" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>15
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="16" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>16
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="17" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>17
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="18" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>18
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="19" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>19
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="20" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>20
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="21" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>21
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="22" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>22
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="23" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>23
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="24" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>24
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="25" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>25
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="26" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>26
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="27" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>27
+								</div>
+
+							</div>
+							<div class="col-3 text-center ">
+								<div id="28" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>28
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="29" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>29
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="30" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>30
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="31" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>31
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="32" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>32
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="33" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>33
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="34" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>34
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="35" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>35
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>36
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>37
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>38
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>39
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>40
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>41
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>42
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>43
+								</div>
+
+							</div>
+							<div class="col-3 text-center">
+								<div id="36" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>44
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+					`;
+
+			} else if(gradosPrimerPiso=="160" && gradosSegundoPiso=="180")
+				
+			{
+				contenedor_bus.innerHTML +=`
+					<div id="contenedor_derivado_bus">
+					<div class="row my-0 py-0 color-borde">
+					<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+						PISO 1: SOFA CAMA 160 grados</div>
+					<div class="col-12 ">
+						<div class="row">
+							<div class="col-4 text-center">
+								<div id="1" class="colorAsiento asiento asiento">
+									<i class="fas fa-chair"></i><br>1
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="2" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>2
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="3" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>3
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="4" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>4
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="5" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>5
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="6" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>6
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="7" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>7
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="8" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>8
+								</div>
+
+							</div>
+							<div class="col-4 text-center">
+								<div id="9" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>9
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="10" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>10
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="11" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>11
+								</div>
+
+							</div>
+							<div class="col-4 text-center ">
+								<div id="12" class="colorAsiento asiento">
+									<i class="fas fa-chair"></i><br>12
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row my-0 py-0 color-borde">
+				<div class="col-12 h6 py-2 text-center mb-3 bg-fondo encabezado-bus">
+					PISO 2: SEMI CAMA 180 grados</div>
+				<div class="col-12">
+					<div class="row">
+						<div class="col-3 text-center ">
+							<div id="13" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>13
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="14" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>14
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="15" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>15
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="16" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>16
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="17" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>17
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="18" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>18
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="19" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>19
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="20" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>20
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="21" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>21
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="22" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>22
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="23" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>23
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="24" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>24
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="25" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>25
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="26" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>26
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="27" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>27
+							</div>
+
+						</div>
+						<div class="col-3 text-center ">
+							<div id="28" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>28
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="29" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>29
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="30" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>30
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="31" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>31
+							</div>
+
+						</div>
+						<div class="col-3 text-center">
+							<div id="32" class="colorAsiento asiento">
+								<i class="fas fa-chair"></i><br>32
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+					
+					
+					
+					
+					
+					
+					
+					`;
+				
+				
+				
+				
+				
+				
+			}
+				
+			
+			
+		}
+		
+		
+		
+	
+	}
+	</script>
+	
+</th:block>
+</body>
+</html>

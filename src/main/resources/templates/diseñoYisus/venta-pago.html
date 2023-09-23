@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+		<div class="row card">
+			<div class="col-10 mx-auto text-center py-3 h6">
+			RUTA DE LA VENTA DE PASAJE
+			</div>
+			<div class="col-10 mx-auto ">
+				<div class="row text-center">
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+						<div class="">Seleccionar Bus</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						<div class="">Seleccionar Asiento</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-user fa-3x"></i></div>
+						<div class="">Registrar Pasajeros</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+						<div class="">Realizar Pago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/venta-pasajero}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>
+				</div>
+				<div class="text-center h5">
+					Pagar
+				</div>
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/venta-pasajero}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="card mb-3">
+					  <div class="card-header bg-fondo">
+					     <i class=" icon fa-solid fa-arrow-up "></i> IDA: TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)
+					  </div>
+					  <div class="card-body pb-0">
+					    <h5 class="card-title"> MIÉRCOLES 27 DE JULIO DE 2022 - 12:00 PM</h5>
+					    <table class="table">
+						  <thead>
+						    <tr class="text-center">
+						      <th scope="col">ASIENTO</th>
+						      <th scope="col">PASAJERO</th>
+						      <th scope="col">N°ASIENTO</th>
+						      <th scope="col">PRECIO</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <td>SEMI CAMA 140°</td>
+						      <td>CAROLINA ALVAREZ GUARNIZ</td>
+						      <td> <i class="icon fa-solid fa-tablet fa-3x"></i> 06</td>
+						      <td>S/.70.00</td>
+						    </tr>
+						  </tbody>
+						</table>
+					  </div>
+					</div>
+					<div class="card mb-3">
+					  <div class="card-header bg-fondo">
+					     <i class=" icon fa-solid fa-arrow-up "></i> IDA: TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)
+					  </div>
+					  <div class="card-body pb-0">
+					    <h5 class="card-title"> MIÉRCOLES 27 DE JULIO DE 2022 - 12:00 PM</h5>
+					    <table class="table">
+						  <thead>
+						    <tr class="text-center">
+						      <th scope="col">ASIENTO</th>
+						      <th scope="col">PASAJERO</th>
+						      <th scope="col">N°ASIENTO</th>
+						      <th scope="col">PRECIO</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <td>SEMI CAMA 140°</td>
+						      <td>CAROLINA ALVAREZ GUARNIZ</td>
+						      <td> <i class="icon fa-solid fa-tablet fa-3x"></i> 06</td>
+						      <td>S/.70.00</td>
+						    </tr>
+						  </tbody>
+						</table>
+					  </div>
+					</div>
+				</div>
+				<div class="row mt-1">
+					<div class="card py-3 col-12 mb-3">
+					  <div class="card-body pb-0">
+					    <h5 class="card-title text-right"> TOTAL: S/.140.00</h5>
+					  </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					 <div class="card-header bg-fondo">
+					     DATOS DEL PAGADOR
+					 </div>
+					 <div class="card-body pb-0">
+					  	<form class="row mx-2py-3  color-borde" id="form_01">
+							  <div class="col-md-6 form-group">
+							    <label for="tipo_documento_01">Tipo Documento</label>
+							    <select onchange="tipo_documentoCambio(this,'01');" class="form-control" id="tipo_documento_01" required="required">
+							      <option value="">Seleccionar</option>
+							      <option value="1">DNI</option>
+							      <option value="2">PASAPORTE</option>
+							    </select>
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="numero_documento_01">N°Documento</label>
+							    <input disabled="disabled" type="text" class="form-control" id="numero_documento_01" required="required" placeholder="N°Documento">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="nombres_01">Nombres</label>
+							    <input type="text" class="form-control solo-texto" id="nombres_01" required="required" placeholder="nombres">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="apellido_paterno_01">Apellido Paterno</label>
+							    <input type="text" class="form-control solo-texto" id="apellido_paterno_01" required="required" placeholder="apellido paterno">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="apellido_materno_01">Apellido Materno</label>
+							    <input type="text" class="form-control solo-texto" id="apellido_materno_01" required="required" placeholder="apellido materno">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="sexo_01">Sexo</label>
+							    <select class="form-control" id="sexo_01" required="required">
+							    <option value="">Seleccionar</option>
+							      <option value="masculino">MASCULINO</option>
+							      <option value="femenino">FEMENINO</option>
+							    </select>
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="telefono_01">Telefono</label>
+							  	<input type="text" class="form-control solo-numero" id="telefono_01" required="required" placeholder="telefono">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="email_01">Email</label>
+							  <input type="email" class="form-control" id="email_01" required="required" placeholder="email">
+							  </div>
+							  <div class="col-md-6 form-group">
+							    <label for="fecha_nacimiento_01">Fecha Nacimiento</label>
+							  <input type="text" class="form-control" id="fecha_nacimiento_01" required="required" placeholder="fecha_nacimiento">
+							  </div>
+							  <div class="col-md-12 form-group text-center">
+							  	<button class="button button-md button-default-outline-2 button-ujarak"> Pagar </button>
+							  </div>
+						</form>
+					 </div>
+				</div>
+			</div>
+		</div>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script>
+		$(function () {
+	        var date = new Date();
+	        date.setFullYear(date.getFullYear()-14);
+	        $("#fecha_nacimiento_01").datepicker({
+	            endDate: date,
+	        });
+	        
+	      });
+		function tipo_documentoCambio(tipo_documento,id_valor){
+			seleccion = $("#tipo_documento_"+id_valor).val();
+			console.log(seleccion)
+			if(seleccion==""){
+				$("#numero_documento_"+id_valor).prop('disabled', true)
+				$("#numero_documento_"+id_valor).val('')
+			}
+			if(seleccion=="1"){
+				$("#numero_documento_"+id_valor).val('')
+				$("#numero_documento_"+id_valor).prop('disabled', false)
+				$("#numero_documento_"+id_valor).prop('maxlength', 8)
+				$("#numero_documento_"+id_valor).bind('keypress', function(event) {
+					  var regex = new RegExp("^[0-9]+$");
+					  var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+					  if (!regex.test(key)) {
+					    event.preventDefault();
+					    return false;
+					  }
+				});		
+			}
+			if(seleccion=="2"){
+				$("#numero_documento_"+id_valor).val('')
+				$("#numero_documento_"+id_valor).prop('disabled', false)
+				$("#numero_documento_"+id_valor).prop('maxlength', 10)
+				$("#numero_documento_"+id_valor).on('input', function (e) {
+					if (!/^[a-zA-Z]{3}[0-9]{6}[a-zA-Z]?$/i.test(this.value)) {
+						$("#numero_documento_"+id_valor).css("border-color", "red");
+					} 
+					if (/^[a-zA-Z]{3}[0-9]{6}[a-zA-Z]?$/i.test(this.value)) {
+						$("#numero_documento_"+id_valor).css("border-color", "green");
+					} 
+				});
+			}
+		}
+		$(".solo-texto").bind('keypress', function(event) {
+			var regex = new RegExp("^[a-zA-Z ]+$");
+			var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+			if (!regex.test(key)) {
+				event.preventDefault();
+				return false;
+			}
+		});
+		$(".solo-numero").bind('keypress', function(event) {
+			  var regex = new RegExp("^[0-9]+$");
+			  var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+			  if (!regex.test(key)) {
+			    event.preventDefault();
+			    return false;
+			  }
+		});	
+		
+		</script>
+	</th:block>
+	
+</body>
+</html>

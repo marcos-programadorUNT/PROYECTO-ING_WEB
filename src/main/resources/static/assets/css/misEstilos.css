@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.card-encabezado{
+	background:#5E72E4; 
+	color:white; 
+	font-weight: bold; 
+	font-size: x-large;
+}
+
+.form-label{
+	font-size: medium;
+}
+
+.encabezado-tabla{
+	font-weight: bold; 
+	font-size: medium;
+	background:#5E72E4;
+	color:white;
+}
+.table{
+	text-align:center;
+}
+.asiento
+{
+	width: 42.5px;
+	height: 48px;
+	border-radius: 20%;
+	cursor: pointer;
+	margin: .5em auto;
+}
+.bg-fondo
+{
+	background: #5E72E4;
+}
+.colorAsiento{
+	background: green;
+	color: white;
+	
+}
+.color-borde
+{
+	border: 1px solid #5E72E4;
+}
+
+.encabezado-bus{
+	background:#5E72E4; 
+	color:white; 
+	font-weight: bold; 
+	font-size: medium;
+}

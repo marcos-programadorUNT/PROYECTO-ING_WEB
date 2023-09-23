@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+<meta charset="ISO-8859-1">
+<!-- <title th:text="${titulo}"></title> -->
+<title>[[${titulo}]]</title>
+<link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+<link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+
+<th:block layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+	<div layout:fragment="page-title">
+            <h1 th:text="${titulo}"></h1>	
+			<h2>[[${titulo}]]</h2>	
+			<div th:each="rol : ${usuario.roles}">
+				<h2>El usuario es [[${rol.descripcion}]]</h2>
+			</div>
+			°á Marcos Hernánde
+				
+     </div>
+
+     <div layout:fragment="page-content">
+     
+     
+     <div class="row">
+     	
+     	<div class="col-md-12">
+     		
+     		<form>
+			    <legend>Pisos</legend>
+			   
+			    <div class="mb-3">
+			      <select  id="nroPisos" onchange="pisos(this);" class="form-select">
+			        <option value="0">Seleccionar</option>
+			        <option value="1">1 piso</option>
+			        <option value="2">2 pisos</option>
+			      </select>
+			    </div>
+			    
+			     <legend>Tipo de asientos</legend>
+			     <div class="mb-3">
+			     
+			      <div id="contenedor_ta1">
+					  
+				  </div>
+				  <div id="contenedor_ta2">
+					  
+				  </div>
+				  
+			     
+			    </div>
+			    
+			    <legend>Precio de asientos</legend>
+			     <div class="mb-3">
+			      <div id="contenedor_pa1">
+					  
+				  </div>
+				  <div id="contenedor_pa2">
+					  
+				  </div>
+			      
+			    </div>
+			    
+			    <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+     	</div>
+     </div>
+     
+    <div class="card">
+	  <div class="card-header card-encabezado">
+	    Card
+	  </div>
+	  <div class="card-body">
+	    <h5 class="card-title">Special title treatment</h5>
+	    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+	    <a href="#" class="btn btn-primary">Go somewhere</a>
+	  </div>
+	</div>
+	
+	<div class="card">
+	  <div class="card-header card-encabezado">
+	    Formulario
+	  </div>
+	  <div class="card-body">
+		<form>
+		  <div class="mb-3">
+		    <label class="form-label">Email address</label>
+		    <input type="email" class="form-control" name="#">
+		    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+		  </div>
+		  <div class="mb-3">
+		    <label class="form-label">Password</label>
+		    <input type="password" class="form-control" name="#">
+		  </div>
+		  <div class="mb-3">
+		    <label class="form-label">Seleccionar</label>
+		    <select class="form-select" name="#">
+			  <option selected>Open this select menu</option>
+			  <option value="1">One</option>
+			  <option value="2">Two</option>
+			  <option value="3">Three</option>
+			</select>
+			 
+			
+		  </div>
+		  <div class="mb-3">
+		  <label class="form-label">Seleccionar 2</label>
+		  <select class="form-control select2 select2-hiddenaccessible selectpicker" style="width: 100%;" data-select2-id="1" tabindex="-1" ariahidden="true" id="cliente_id" name="cliente_id" data-live-search="true">
+			 	 <option value="0" selected>- Seleccione Cliente -</option> 
+				 <option value="1" >Alemania</option> 
+				 <option value="2" >Brasil</option> 
+				 <option value="3" >PerÃº</option> 
+			 </select>
+		  </div>
+		  <br>
+		  <br>
+		  <br>
+		  
+		</form>
+	  </div>
+	</div>
+	<div class="card">
+	  <div class="card-header card-encabezado">
+	    Tablas
+	  </div>
+	  <div class="card-body">
+		<table class="table">
+					 <thead class="encabezado-tabla">
+					    <tr>
+					      <th scope="col" colspan="5">BUSES DE IDA: TRUJILLO - LIMA</th>
+					    </tr>
+					  </thead>
+					  <thead class="encabezado-tabla">
+					    <tr>
+					      <th scope="col">COLUMNA 1</th>
+					      <th scope="col">COLUMNA 2</th>
+					      <th scope="col">COLUMNA 3</th>
+					      <th scope="col">COLUMNA 4</th>
+					      <th scope="col">OPCIONES</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>F1C1</td>
+					      <td>F1C2</td>
+					      <td>F1C3</td>
+					      <td>F1C4</td>
+					      <td>
+					      <a class="btn btn-primary">Editar <i class="fas fa-edit"></i></a>
+					      <a class="btn btn-danger">Eliminar <i class="fas fa-trash"></i></a>
+					      <a class="btn btn-success">Editar <i class="fas fa-edit"></i></a>
+					      
+					      
+					      
+					      </td>
+					    </tr>
+					  </tbody>
+					</table>
+	  </div>
+	</div>
+	     
+     
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat ducimus ratione est ut blanditiis, consectetur voluptas, enim laudantium, voluptatibus pariatur dignissimos quo labore illum dolores perspiciatis ipsa neque at temporibus.</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint assumenda facilis nesciunt itaque adipisci minus delectus excepturi libero saepe laborum repellat modi eum asperiores fugiat, aliquam, reprehenderit tempora? Soluta, ut!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolorem fuga nesciunt? Incidunt deserunt ratione debitis reiciendis inventore sunt quisquam iusto, esse quo quibusdam sapiente temporibus commodi voluptates officiis reprehenderit.</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio qui aperiam, dolorum quis voluptatibus nobis atque beatae obcaecati illo, quam neque excepturi repudiandae omnis. Eaque maiores laborum praesentium possimus explicabo!</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere, incidunt obcaecati! In quod atque quae et facilis culpa tempora provident neque aperiam sapiente, labore accusantium iusto eius laudantium doloribus perferendis!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In iure alias, asperiores molestias maxime aliquid quam ex aspernatur, vitae aut aperiam esse ipsum modi quae vel praesentium perspiciatis sint excepturi.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio explicabo voluptate minus error unde consequuntur voluptatibus aspernatur ullam, tempora maiores velit asperiores eaque amet voluptas officia excepturi! Eveniet, quasi id?</p>
+        
+        
+        
+     </div>
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+	
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
+	<script th:src="@{/assets/select/bootstrap-select.min.js}"></script>
+	<script type="text/javascript">
+	
+	function pisos(nroPisos) 
+	{
+		
+		contenedor_ta1 = document.getElementById("contenedor_ta1");
+		contenedor_ta2 = document.getElementById("contenedor_ta2");
+		if($('#contenedor_derivado_ta1'))
+			$('#contenedor_derivado_ta1').remove();
+		if($('#contenedor_derivado_ta2'))
+			$('#contenedor_derivado_ta2').remove();
+		if($('#contenedor_derivado_pa1'))
+			$('#contenedor_derivado_pa1').remove();
+		if($('#contenedor_derivado_pa2'))
+			$('#contenedor_derivado_pa2').remove();
+		
+		if(nroPisos.value=="1"){
+			contenedor_ta1.innerHTML +=`
+				<div id="contenedor_derivado_ta1">
+					<label for="disabledSelect" class="form-label">Primer piso</label>
+				    <select  class="form-select" onchange="precioPiso1(this);" name="ta_piso[]" required>
+					    <option value="0">Seleccionar</option>
+				    	<option value="1">140</option>
+				        <option value="2">160</option>
+				        <option value="3">180</option>
+				    </select>
+			    </div>
+				`;
+		} 
+		else if(nroPisos.value=="2")
+		{
+			contenedor_ta1.innerHTML +=`
+				<div id="contenedor_derivado_ta1">
+					<label for="disabledSelect" class="form-label">Primer piso</label>
+				    <select  class="form-select" onchange="precioPiso1(this);" name="ta_piso[]" required>
+				    	<option value="0">Seleccionar</option>
+				    	<option value="1">140</option>
+				        <option value="2">160</option>
+				        <option value="3">180</option>
+				    </select>
+			    </div>
+			    
+				`;
+			contenedor_ta2.innerHTML +=`
+				<div id="contenedor_derivado_ta2">
+					<label for="disabledSelect" class="form-label">Segundo piso</label>
+				    <select  class="form-select" onchange="precioPiso2(this);" name="ta_piso[]" required>
+					    <option value="0">Seleccionar</option>
+				    	<option value="1">140</option>
+				        <option value="2">160</option>
+				        <option value="3">180</option>
+				    </select>
+			    </div>
+				`;
+		}
+		
+		
+		
+		//console.log(nroPisos.value);	
+	}
+	
+	function precioPiso1(grados) 
+	{
+		//console.log(pisos);	
+		contenedor_pa1 = document.getElementById("contenedor_pa1");
+		if($('#contenedor_derivado_pa1'))
+			$('#contenedor_derivado_pa1').remove();
+		switch(grados.value)
+		{
+			case "1": 
+				nombreGrado="140 grados";
+				break;
+			case "2": 
+				nombreGrado="160 grados";
+				break;
+			case "3": 
+				nombreGrado="180 grados";
+				break;
+		}
+		//console.log(nombreGrado);
+		
+			contenedor_pa1.innerHTML +=`
+				<div id="contenedor_derivado_pa1">
+				    <label for="disabledTextInput" class="form-label">Precio de asiento ${nombreGrado} piso 1</label>
+				    <input type="text" class="form-control" name="precio_piso[]">
+			    </div>
+				`;
+	}
+	
+	function precioPiso2(grados) 
+	{
+		//console.log(pisos);	
+		contenedor_pa2 = document.getElementById("contenedor_pa2");
+		if($('#contenedor_derivado_pa2'))
+			$('#contenedor_derivado_pa2').remove();
+		switch(grados.value)
+		{
+			case "1": 
+				nombreGrado="140 grados";
+				break;
+			case "2": 
+				nombreGrado="160 grados";
+				break;
+			case "3": 
+				nombreGrado="180 grados";
+				break;
+		}
+		//console.log(nombreGrado);
+		
+			contenedor_pa2.innerHTML +=`
+				<div id="contenedor_derivado_pa2">
+				    <label for="disabledTextInput" class="form-label">Precio de asiento ${nombreGrado} piso 2</label>
+				    <input type="text" class="form-control" name="precio_piso[]">
+			    </div>
+				`;
+	}
+	</script>
+	
+</th:block>
+</body>
+</html>

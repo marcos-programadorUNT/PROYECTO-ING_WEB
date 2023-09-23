@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+<meta charset="ISO-8859-1">
+<!-- <title th:text="${titulo}"></title> -->
+<title>[[${titulo}]]</title>
+<link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+<link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+<th:block layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+	<div layout:fragment="page-title">
+		<h1>Listado de buses</h1>
+    </div>
+
+     <div layout:fragment="page-content">
+     
+	     <div class="row">
+	     	<div class="col-md-12">
+	     	
+	     		<table class="table">
+					  <thead class="encabezado-tabla">
+					    <tr>
+					      <th scope="col">PLACA</th>
+					      <th scope="col">SUCURSAL DISPONIBLE</th>
+					      <th scope="col">OPCIONES</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="bus :${buses}">
+					      <td th:text="${bus.nroPlaca}"></td>
+					      <div th:each="bus_sucursal :${bus.buses_sucursales}">
+					      	<div th:if="${bus_sucursal.activo}">
+					      		<td th:text="${bus_sucursal.sucursal.direccion}"></td>
+					      	</div>
+					      	<!--  
+					      	<div th:if="${bus_sucursal.activo == false}">
+					      		<td>No tiene</td>
+					      	</div>
+					      	-->
+					      	
+					      </div>
+					      <td>
+					      <a class="btn btn-primary" th:href="@{/busCronogramas/}+${bus.idBus}">Cronogramas <i class="fas fa-edit"></i></a>
+					      <a class="btn btn-info" th:href="@{/admin/busActivarSucursal/}+${bus.idBus}">Activacion <i class="fas fa-edit"></i></a>
+					      <a class="btn btn-danger" th:href="@{/admin/busDesactivarSucursal/}+${bus.idBus}">Desactivacion <i class="fas fa-edit"></i></a>
+					      </td>
+					    </tr>
+					  </tbody>
+				</table>	
+	     	</div>
+	     </div>
+     
+     
+     </div>
+     
+     
+
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+	
+
+	
+</th:block>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+  <meta charset="ISO-8859-1">
+  <!-- <title th:text="${titulo}"></title> -->
+  <link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+  <link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+<th:block th:if="${sesion}" layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+<div layout:fragment="page-title">
+  <h3 th:if="${cronograma_viaje}" th:text="'LISTADOS DE BOLETOS DE '+${cronograma_viaje.ruta.lugarOrigen.descripcion}+' - '+${cronograma_viaje.ruta.lugarDestino.descripcion}+' A LAS '+${cronograma_viaje.horaSalida}">LISTADOS DE BOLETOS </h3>
+</div>
+
+<div layout:fragment="page-content">
+
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+
+      <table class="table">
+        <thead class="encabezado-tabla">
+        <tr>
+          <th scope="col">NRO DOCUMENTO</th>
+          <th scope="col">NOMBRE COMPLETO</th>
+          <th scope="col">DETALLE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:if="${!boletos.isEmpty()}">
+          <tr th:each="boleto :${boletos}">
+            <td th:text="${boleto.cliente.nroDocumento}"></td>
+            <td th:text="${boleto.cliente.nombres}+' '+${boleto.cliente.apellidoPaterno}+' '+${boleto.cliente.apellidoMaterno}"></td>
+            <td><a class="btn btn-primary" th:href="@{/empleado/detalleBoleto/}+${boleto.idBoleto}">Detalle</a></td>
+          </tr>
+        </th:block>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+
+
+
+</th:block>
+</body>
+</html>

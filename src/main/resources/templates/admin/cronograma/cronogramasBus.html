@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+<meta charset="ISO-8859-1">
+<!-- <title th:text="${titulo}"></title> -->
+<title>[[${titulo}]]</title>
+<link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+<link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+<th:block layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+	<div layout:fragment="page-title">
+			<h1>Listado de cronogramas del bus [[${bus.nroPlaca}]]</h1>
+    </div>
+
+     <div layout:fragment="page-content">
+     
+	     <div class="row">
+	     	<div class="col-md-12">
+	     		<br>
+	     		<div th:if="${contador}=='1'">
+	     			<a class="btn btn-primary" th:href="@{/createCronogramaBus/}+${bus.idBus}">Agregar</a>
+	     		</div>
+	     		
+	     		<table class="table">
+					  <thead class="encabezado-tabla">
+					    <tr>
+					      <th scope="col">RUTA</th>
+					      <th scope="col">FECHA SALIDA</th>
+					      <th scope="col">HORA DE SALIDA</th>
+					      <th scope="col">FECHA LLEGADA</th>
+					      <th scope="col">HORA APROX DE LLEGADA</th>
+					      
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="cv :${cronogramas_viajes}">
+					      <td>[[${cv.ruta.lugarOrigen.descripcion}]]-[[${cv.ruta.lugarDestino.descripcion}]]</td>
+					      <td th:text="${cv.fechaSalida}"></td>
+					      <td th:text="${cv.horaSalida}"></td>
+					      <td th:text="${cv.fechaLlegada}"></td>
+					      <td th:text="${cv.horaAproxLlegada}"></td>
+					      
+					      
+					      
+					    </tr>
+					  </tbody>
+				</table>	
+	     	</div>
+	     </div>
+     
+     
+     </div>
+     
+     
+
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+	
+
+	
+</th:block>
+</body>
+</html>

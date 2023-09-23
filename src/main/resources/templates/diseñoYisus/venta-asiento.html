@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+	 	<form th:action="@{/venta-pasajero}" id="form">
+		<div class="row card">
+			<div class="col-10 mx-auto text-center py-3 h6">
+			RUTA DE LA VENTA DE PASAJE
+			</div>
+			<div class="col-10 mx-auto ">
+				<div class="row text-center">
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+						<div class="">Seleccionar Bus</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						<div class="">Seleccionar Asiento</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-user fa-3x"></i></div>
+						<div class="">Registrar Pasajeros</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+						<div class="">Realizar Pago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/venta-bus}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>
+				</div>
+				<div class="text-center h5">
+					Seleccionar Asientos
+				</div>
+				<div>
+					<button type="submit" class="button button-md button-default-outline-2 button-ujarak">Siguiente <i class="icon fa-solid fa-caret-right"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3 text-center">
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: green"></div>
+				<div class="">Libres</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: red"></div>
+				<div class="">Vendidos</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: orange"></div>
+				<div class="">Reservados</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: blue"></div>
+				<div class="">No Disponibles</div>
+			</div>
+			<div class="col py-1">
+				<div class="leyenda-asiento" style="background: gray"></div>
+				<div class="">En mi carrito</div>
+			</div>
+		</div>
+		<div class="row my-3 color-borde my-2">
+			<div class="col-12 py-1 bg-fondo text-center h6">
+					REQUISITOS PARA ABORDAR
+				</div>
+			<div class="col-12 py-1">
+				<ol>
+					<li>
+					- DNI, pasaporte o carnet de extranjería.
+					</li>
+					<li>
+					- Boleto de viaje impreso o virtual.
+					</li>
+					<li>
+					- Permiso de viaje notarial para menores de edad NO acompañados de sus padres.
+					</li>
+					<li>
+					- Carnet de vacunación físico o virtual:
+					+ 12 años (2 dosis)
+					+ 18 años (3 dosis)
+					</li>
+					<li>
+					- Mascarilla KN95 o doble mascarilla obligatoria.
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="row card my-0 py-2">
+			<div class="row">
+			
+			<div class="col-md-6">
+				<table class="table" id="tabla_ida">
+				 <thead class="bg-fondo">
+				    <tr>
+				      <th><i class=" icon fa-solid fa-arrow-up "></i> BUS DE IDA: TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)</th>
+				    </tr>
+				  </thead>
+				 <thead>
+				    <tr>
+				      <th class="text-center" >MIERCOLES 24 DE JULIO DE 2022 - 12:00 PM</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td>
+					     <div class="row">				      
+					      	<div class="col-md-6">
+					      		<div class="row my-0 py-0 color-borde">
+					      			<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+					      			PISO 1: SOFA CAMA 160°
+					      			</div>
+					      			<div class="col-12 ">
+					      				<div class="row">
+					      					<div class="col-4 text-center">
+						      					<div   id="1" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="2" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="3" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+											<div class="col-4 text-center">
+						      					<div   id="4" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="5" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="6" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="7" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="8" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center">
+						      					<div   id="9" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center ">
+						      					<div   id="10" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center ">
+						      					<div   id="11" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-4 text-center ">
+						      					<div   id="12" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      				</div>
+					      			</div>
+					      		</div>
+					      		<div class="row my-0 py-0 color-borde">
+					      			<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+					      			PISO 2: SEMI CAMA 140°
+					      			</div>
+					      			<div class="col-12">
+					      				<div class="row">
+					      					<div class="col-3 text-center ">
+						      					<div   id="13" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center ">
+						      					<div   id="14" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center ">
+						      					<div   id="15" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+											<div class="col-3 text-center ">
+						      					<div   id="16" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="17" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="18" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="19" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="20" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="21" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="22" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="23" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="24" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center ">
+						      					<div   id="25" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center ">
+						      					<div   id="26" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center ">
+						      					<div   id="27" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+											<div class="col-3 text-center ">
+						      					<div   id="28" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="29" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="30" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="31" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="32" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="33" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="34" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="35" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      					<div class="col-3 text-center">
+						      					<div   id="36" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+					      						<div>S/.90</div>
+					      					</div>
+					      				</div>
+					      			</div>
+					      		</div>
+					      	</div>
+					      	<div class="col-md-6">
+								<div class="row color-borde">
+								<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+										MIS ASIENTOS
+									</div>
+									<div class="col-12 mx-auto border py-3" >
+										<div class="row" id="contenedor_ida">
+
+										</div>
+									</div>
+								</div>
+								<div class="row color-borde my-3 pb-3">
+									<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+										INFORMACION DEL VIAJE
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Ruta:
+										<p>TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Fecha:
+										<p>27-07-2022</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Hora:
+										<p>12:00 PM</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Tramos:
+										<p>TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)</p>
+										<p>TRUJILLO - PLAZA NORTE)</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border h6 my-0" >
+										Precios
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Asiento individual piso 01:
+										<p>S/. 100.00</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Asiento compartido piso 01:
+										<p>S/. 95.00</p>
+									</div>
+									<div class="col-10 mx-auto py-2 border" >
+										Asiento compartido piso 02:
+										<p>S/. 70.00</p>
+									</div>
+								</div>
+					      	</div>
+				      	</div>
+					  </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+				<div class="col-md-6">
+					<table class="table" id="tabla_retorno">
+					 <thead class="bg-fondo">
+					    <tr>
+					      <th><i class=" icon fa-solid fa-arrow-down "></i> BUS DE RETORNO: LIMA (LA VICTORIA) - TRUJILLO (JUAN PABLO)</th>
+					    </tr>
+					  </thead>
+					 <thead>
+					    <tr>
+					      <th class="text-center" >SÁBADO 30 DE JULIO DE 2022 - 12:00 PM</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>
+						     <div class="row">				      
+						      	<div class="col-md-6">
+						      		<div class="row my-0 py-0 color-borde">
+						      			<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+						      			PISO 1: SOFA CAMA 160°
+						      			</div>
+						      			<div class="col-12 ">
+						      				<div class="row">
+						      					<div class="col-4 text-center">
+							      					<div   id="50" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="51" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="53" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+												<div class="col-4 text-center">
+							      					<div   id="54" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="55" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="56" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="57" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="58" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center">
+							      					<div   id="59" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center ">
+							      					<div   id="510" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center ">
+							      					<div   id="511" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-4 text-center ">
+							      					<div   id="512" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      				</div>
+						      			</div>
+						      		</div>
+						      		<div class="row my-0 py-0 color-borde">
+						      			<div class="col-12 h6 py-2 text-center mb-3 bg-fondo">
+						      			PISO 2: SEMI CAMA 140°
+						      			</div>
+						      			<div class="col-12">
+						      				<div class="row">
+						      					<div class="col-3 text-center ">
+							      					<div   id="513" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center ">
+							      					<div   id="514" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center ">
+							      					<div   id="515" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+												<div class="col-3 text-center ">
+							      					<div   id="516" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="517" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="518" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="519" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="520" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="521" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="522" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="523" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="524" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center ">
+							      					<div   id="525" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center ">
+							      					<div   id="526" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center ">
+							      					<div   id="527" class="asiento bloqueado"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+												<div class="col-3 text-center ">
+							      					<div   id="528" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="529" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="530" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="531" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="532" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="533" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="534" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="535" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      					<div class="col-3 text-center">
+							      					<div   id="536" class="asiento disponible"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						      						<div>S/.90</div>
+						      					</div>
+						      				</div>
+						      			</div>
+						      		</div>
+						      	</div>
+						      	<div class="col-md-6">
+									<div class="row color-borde">
+										<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+											MIS ASIENTOS
+										</div>
+										<div class="col-12 mx-auto border  py-3">
+											<div class="row" id="contenedor_retorno">
+											</div>
+										</div>
+									</div>
+									<div class="row color-borde my-3 pb-3">
+										<div class="col-12 h6 py-2 mx-auto mb-3 bg-fondo text-center" >
+											INFORMACION DEL VIAJE
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Ruta:
+											<p>TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Fecha:
+											<p>27-07-2022</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Hora:
+											<p>12:00 PM</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Tramos:
+											<p>TRUJILLO (JUAN PABLO) - LIMA (LA VICTORIA)</p>
+											<p>TRUJILLO - PLAZA NORTE)</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border h6 my-0" >
+											Precios
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Asiento individual piso 01:
+											<p>S/. 100.00</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Asiento compartido piso 01:
+											<p>S/. 95.00</p>
+										</div>
+										<div class="col-10 mx-auto py-2 border" >
+											Asiento compartido piso 02:
+											<p>S/. 70.00</p>
+										</div>
+									</div>
+						      	</div>
+					      	</div>
+						  </td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		</form>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script>
+			$(function () {
+				//FUNCIONA PARA ASIENTOS DE IDA
+		        $("table#tabla_ida div.asiento").click(function(event){
+					console.log(this.id);
+					if(!escogidoAsiento("ida",this.id)){						
+						agregarAsiento("ida",this.id)
+					}else{
+						eliminarAsiento("ida",this.id)
+					}
+		          });
+				
+		      //FUNCIONA PARA ASIENTOS DE RETORNO
+		        $("table#tabla_retorno div.asiento").click(function(event){
+					console.log(this.id);
+					if(!escogidoAsiento("retorno",this.id)){					
+						agregarAsiento("retorno",this.id)
+					}else{
+						eliminarAsiento("retorno",this.id)
+					}
+		          });
+		      
+		        $("#form").submit(function(event) {
+		        	if($("#contenedor_ida div")){
+			        	if(!$("#contenedor_ida div").length>0){
+							alert("Se necesita almenos un asiento de Ida seleccionado");
+				            event.preventDefault();
+			        	}
+		        	}
+		        	if($("#contenedor_retorno div")){
+			        	if(!$("#contenedor_retorno div").length>0){
+							alert("Se necesita almenos un asiento de Retorno seleccionado");
+				            event.preventDefault();
+			        	}
+		        	}
+		        	return true;
+		          });
+		      });
+			
+			function escogidoAsiento(tipo,numero){
+				if($("#contenedor_"+tipo+" div#"+numero).length>0){ 
+					return true;
+				}else{
+					return false;
+				}
+			}
+			
+			function agregarAsiento(tipo,numero){
+				$("#contenedor_"+tipo).html($("#contenedor_"+tipo).html()+
+				`<div class="col-3 text-center" id="${numero}">
+					<div class="asiento escogido">
+						<i class="icon fa-solid fa-tablet fa-3x"></i> 
+						<br>
+						${numero}
+					</div>
+				</div>`
+				);
+				$("table#tabla_"+tipo+" div#"+numero).addClass("escogido");
+			}
+			
+			function eliminarAsiento(tipo,numero){
+				$("#contenedor_"+tipo+" div#"+numero).remove();
+				$("table#tabla_"+tipo+" div#"+numero).removeClass("escogido");
+				$("table#tabla_"+tipo+" div#"+numero).addClass("disponible");
+			}
+		</script>
+	</th:block>
+	
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+	 <form th:action="@{/compraBoletos/guardarCronogramas}" th:method="POST" id="form">
+		 <div class="row card">
+				<div class="col-10 mx-auto text-center py-3 h6">
+				RUTA DE LA VENTA DE PASAJE
+				</div>
+				<div class="col-10 mx-auto ">
+					<div class="row text-center">
+						<div class="col-md-3 ruta-venta  py-1">
+							<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+							<div class="">Seleccionar Bus</div>
+						</div>
+						<div class="col-md-3 ruta-venta  py-1">
+							<div class="icono-ruta-venta"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+							<div class="">Seleccionar Asiento</div>
+						</div>
+						<div class="col-md-3 ruta-venta  py-1">
+							<div class="icono-ruta-venta"><i class="icon fa-solid fa-user fa-3x"></i></div>
+							<div class="">Registrar Pasajeros</div>
+						</div>
+						<div class="col-md-3 ruta-venta  py-1">
+							<div class="icono-ruta-venta"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+							<div class="">Realizar Pago</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<!--<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>-->
+				</div>
+				<div class="text-center h5">
+					Seleccionar Bus
+				</div>
+				<div>
+					<button type="submit" class="button button-md button-default-outline-2 button-ujarak">Siguiente <i class="icon fa-solid fa-caret-right"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="row card my-0 py-2">
+			<div class="row">
+			<th:block th:if="${ruta!=null and !cronogramasIda.isEmpty()}">
+				<div class="col-md-6" id="ida">
+					<table class="table">
+						<thead class="bg-fondo">
+						<tr>
+							<th scope="col" colspan="4" ><i class=" icon fa-solid fa-arrow-up "></i><th:block th:text="'BUSES DE IDA:'+${ruta.lugarOrigen.descripcion}+'-'+${ruta.lugarDestino.descripcion}"></th:block></th>
+						</tr>
+						</thead>
+						<thead>
+						<tr>
+							<th class="text-center" scope="col" colspan="4"></th>
+						</tr>
+						</thead>
+						<thead class="text-center">
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">SALIDA</th>
+							<th scope="col">ASIENTOS</th>
+							<th scope="col">PRECIO</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						<tr th:each="cronogramaIda: ${cronogramasIda}">
+							<th scope="row">
+								<input type="radio" id="cronograma_ida" name="idCronogramaIda" th:value="${cronogramaIda[0]}">
+							</th>
+							<td th:text="${cronogramaIda[1]}"></td>
+							<td>
+								<p>[[${cronogramaIda[2]}]] : [[${cronogramaIda[3]}]] <i class="color-texto icon fa-solid fa-arrow-right"></i> ([[${cronogramaIda[4]}]] Libres)</p>
+
+							</td>
+							<td>
+								<p>Costo <strong>S/.[[${cronogramaIda[5]}]]</strong></p>
+							</td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+			<th:block th:if="${ruta!=null and !cronogramasVuelta.isEmpty()}">
+				<div class="col-md-6" id="vuelta">
+					<table class="table">
+						<thead class="bg-fondo">
+						<tr>
+							<th scope="col" colspan="4"><i class=" icon fa-solid fa-arrow-down "></i> BUSES DE RETORNO: [[${ruta.lugarDestino.descripcion}]]-[[${ruta.lugarOrigen.descripcion}]]</th>
+						</tr>
+						</thead>
+						<thead>
+						<tr>
+							<th class="text-center" scope="col" colspan="4"></th>
+						</tr>
+						</thead>
+						<thead class="text-center">
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">SALIDA</th>
+							<th scope="col">ASIENTOS</th>
+							<th scope="col">PRECIO</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="cronogramaVuelta: ${cronogramasVuelta}">
+							<th scope="row">
+								<input type="radio" id="cronograma_vuelta" name="idCronogramaVuelta" th:value="${cronogramaVuelta[0]}">
+							</th>
+							<td th:text="${cronogramaVuelta[1]}"></td>
+							<td>
+								<p>[[${cronogramaVuelta[2]}]] : [[${cronogramaVuelta[3]}]] <i class="color-texto icon fa-solid fa-arrow-right"></i> ([[${cronogramaVuelta[4]}]] Libres)</p>
+
+							</td>
+							<td>
+								<p>Costo <strong>S/.[[${cronogramaVuelta[5]}]]</strong></p>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+
+			</div>
+		</div>
+	</form>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script>
+
+			$(function () {
+				$("#form").submit(function(event) {
+
+					//console.log($("col-md-6#ida input:radio[name=idCronogramaIda]:checked").val())
+					//console.log("Ida: "+$("input:radio[name=idCronogramaIda]:checked").val())
+					//console.log("Vuelta: "+$("input:radio[name=idCronogramaVuelta]:checked").val())
+					//console.log(document.getElementById("cronograma_ida"))
+
+				});
+			});
+
+
+		
+		</script>
+	</th:block>
+</body>
+</html>

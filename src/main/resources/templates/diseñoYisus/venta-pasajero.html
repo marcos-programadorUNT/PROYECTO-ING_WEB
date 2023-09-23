@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+	 <form th:action="@{/venta-pago}" id="form">
+		<div class="row card">
+			<div class="col-10 mx-auto text-center py-3 h6">
+			RUTA DE LA VENTA DE PASAJE
+			</div>
+			<div class="col-10 mx-auto ">
+				<div class="row text-center">
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+						<div class="">Seleccionar Bus</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						<div class="">Seleccionar Asiento</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-user fa-3x"></i></div>
+						<div class="">Registrar Pasajeros</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+						<div class="">Realizar Pago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/venta-asiento}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>
+				</div>
+				<div class="text-center h5">
+					Seleccionar Pasajeros
+				</div>
+				<div>
+					<button type="submit" class="button button-md button-default-outline-2 button-ujarak boton">Siguiente <i class="icon fa-solid fa-caret-right"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="row card my-0 py-2">
+			<div class="row">
+			
+				<div class="col-md-6 ">
+					<table class="table">
+					 <thead class="bg-fondo">
+					    <tr>
+					      <th scope="col"><i class=" icon fa-solid fa-arrow-up "></i> PASAJEROS DE IDA: TRUJILLO - LIMA</th>
+					    </tr>
+					  </thead>
+					 <thead>
+					    <tr>
+					      <th class="text-center" scope="col">MIERCOLES 24 DE JULIO DE 2022 - 12:00 PM</th>
+					    </tr>
+					  </thead>
+					</table>
+					<div class="row mx-2 py-3 color-borde formulario" id="form_01">
+					  <div class="col-md-6 form-group">
+					    <label for="tipo_documento_01">Tipo Documento</label>
+					    <select class="form-control tipo_documento" id="tipo_documento_01" required="required">
+					      <option value="">Seleccionar</option>
+					      <option value="1">DNI</option>
+					      <option value="2">PASAPORTE</option>
+					    </select>
+					  </div>
+					  <div class="col-md-6 form-group">
+					    <label for="numero_documento_01">N°Documento</label>
+					    <input type="text" class="form-control numero_documento" disabled="disabled" id="numero_documento_01" required="required" placeholder="N°Documento">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="nombres_01">Nombres</label>
+					    <input type="text" class="form-control solo-texto" id="nombres_01" required="required" placeholder="nombres">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="apellido_paterno_01">Apellido Paterno</label>
+					    <input type="text" class="form-control solo-texto" id="apellido_paterno_01" required="required" placeholder="apellido paterno">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="apellido_materno_01">Apellido Materno</label>
+					    <input type="text" class="form-control solo-texto" id="apellido_materno_01" required="required" placeholder="apellido materno">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="sexo_01">Sexo</label>
+					    <select class="form-control" id="sexo_01" required="required">
+					    <option value="">Seleccionar</option>
+					      <option value="masculino">MASCULINO</option>
+					      <option value="femenino">FEMENINO</option>
+					    </select>
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="fecha_nacimiento_01">Fecha Nacimiento</label>
+					  <input type="text" class="form-control fecha_nacimiento" id="fecha_nacimiento_01" required="required" placeholder="fecha_nacimiento">
+					  </div>
+					   <div class="col-md-4 form-group">
+					    <label for="tipo_edad_01">Tipo Edad</label>
+					    <select onchange="tipo_edadCambio(this,'01');" class="form-control" id="tipo_edad_01" required="required">
+					    	<option value="" >Seleccionar</option>
+					      	<option value="1">MENOR DE EDAD menor 18</option>
+					      	<option value="2">ADULTO 18 a 64</option>
+					      	<option value="3">ADULTO MAYOR mayor 64</option>
+					    </select>
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="telefono_01">Telefono</label>
+					  	<input type="text" class="form-control solo-numero" id="telefono_01" required="required" placeholder="telefono">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="email_01">Email</label>
+					  <input type="email" class="form-control" id="email_01" required="required" placeholder="email">
+					  </div>
+					  <div class="col-md-12 form-group">
+						    <label for="carnet_vacunacion_01">Carnet Vacunacion</label>
+						  	<input type="file" class="form-control" id="carnet_vacunacion_01" required="required">
+					</div>
+					  <div class="col-md-12 form-group">
+						  <div class="form-check">
+							  <input onclick="estado_rucCambio(this,'01');" class="form-check-input" type="checkbox" id="estado_ruc_01">
+							  <label class="form-check-label" for="estado_ruc_01">
+							    RUC
+							  </label>
+						  </div>
+					  </div>
+					  <div class="row mx-1 my-0" id="contenedor_ruc_01">
+					  
+					  </div>
+					  <div id="contenedor_archivo_01">
+					  
+					  </div>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<table class="table">
+					 <thead class="bg-fondo">
+					    <tr>
+					      <th scope="col"><i class=" icon fa-solid fa-arrow-down "></i> PASAJEROS DE RETORNO: LIMA - TRUJILLO</th>
+					    </tr>
+					  </thead>
+					 <thead>
+					    <tr>
+					      <th class="text-center" scope="col">SÁBADO  30  DE JULIO DE 2022 - 12:00 PM</th>
+					    </tr>
+					  </thead>
+					</table>
+					<div class="row mx-2 py-3 color-borde formulario" id="form_02">
+					  <div class="col-md-6 form-group">
+					    <label for="tipo_documento_02">Tipo Documento</label>
+					    <select class="form-control tipo_documento" id="tipo_documento_02" required="required">
+					      <option value="">Seleccionar</option>
+					      <option value="1">DNI</option>
+					      <option value="2">PASAPORTE</option>
+					    </select>
+					  </div>
+					  <div class="col-md-6 form-group">
+					    <label for="numero_documento_02">N°Documento</label>
+					    <input type="text" class="form-control numero_documento" disabled="disabled" id="numero_documento_02" required="required" placeholder="N°Documento">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="nombres_02">Nombres</label>
+					    <input type="text" class="form-control solo-texto" id="nombres_02" required="required" placeholder="nombres">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="apellido_paterno_02">Apellido Paterno</label>
+					    <input type="text" class="form-control solo-texto" id="apellido_paterno_02" required="required" placeholder="apellido paterno">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="apellido_materno_02">Apellido Materno</label>
+					    <input type="text" class="form-control solo-texto" id="apellido_materno_02" required="required" placeholder="apellido materno">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="sexo_02">Sexo</label>
+					    <select class="form-control" id="sexo_02" required="required">
+					    <option value="">Seleccionar</option>
+					      <option value="masculino">MASCULINO</option>
+					      <option value="femenino">FEMENINO</option>
+					    </select>
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="fecha_nacimiento_02">Fecha Nacimiento</label>
+					  <input type="text" class="form-control fecha_nacimiento" id="fecha_nacimiento_02" required="required" placeholder="fecha_nacimiento">
+					  </div>
+					   <div class="col-md-4 form-group">
+					    <label for="tipo_edad_02">Tipo Edad</label>
+					    <select onchange="tipo_edadCambio(this,'02');" class="form-control" id="tipo_edad_02" required="required">
+					      <option value="">Seleccionar</option>
+					      <option value="1">MENOR DE EDAD menor 18</option>
+					      <option value="2">ADULTO 18 a 64</option>
+					      <option value="3">ADULTO MAYOR mayor 64</option>
+					    </select>
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="telefono_02">Telefono</label>
+					  	<input type="text" class="form-control solo-numero" id="telefono_02" required="required" placeholder="telefono">
+					  </div>
+					  <div class="col-md-4 form-group">
+					    <label for="email_02">Email</label>
+					  <input type="email" class="form-control" id="email_02" required="required" placeholder="email">
+					  </div>
+					  <div class="col-md-12 form-group">
+						    <label for="carnet_vacunacion_02">Carnet Vacunacion</label>
+						  	<input type="file" class="form-control" id="carnet_vacunacion_02" required="required">
+						</div>
+					  <div class="col-md-12 form-group">
+						  <div class="form-check">
+							  <input onclick="estado_rucCambio(this,'02');" class="form-check-input" type="checkbox" id="estado_ruc_02">
+							  <label class="form-check-label" for="estado_ruc_02">
+							    RUC
+							  </label>
+						  </div>
+					  </div>
+					  <div class="row mx-1 my-0" id="contenedor_ruc_02">
+					  
+					  </div>
+					  <div id="contenedor_archivo_02">
+					  
+					  </div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+		</form>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script type="text/javascript">
+		$(function () {
+			
+			var date = new Date();
+	        date.setFullYear(date.getFullYear()-14);
+	        $(".fecha_nacimiento").datepicker({
+	            endDate: date,
+	        });
+	        
+	        $(".solo-texto").bind('keypress', function(event) {
+				var regex = new RegExp("^[a-zA-Z ]+$");
+				var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+				if (!regex.test(key)) {
+					event.preventDefault();
+					return false;
+				}
+			});
+			
+			$(".solo-numero").bind('keypress', function(event) {
+				  var regex = new RegExp("^[0-9]+$");
+				  var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+				  if (!regex.test(key)) {
+				    event.preventDefault();
+				    return false;
+				  }
+			});		
+			
+			$(".tipo_documento").change(function(event) {
+				id = this.id.split("_")
+				console.log(this.value)
+				console.log(id[2])
+				if(this.value==""){
+					$("#numero_documento_"+id[2]).prop('disabled', true)
+					$("#numero_documento_"+id[2]).val('')
+				}
+				if(this.value=="1"){
+					$("#numero_documento_"+id[2]).val('')
+					$("#numero_documento_"+id[2]).prop('disabled', false)
+					$("#numero_documento_"+id[2]).prop('maxlength', 8)
+					$("#numero_documento_"+id[2]).bind('keypress', function(event) {
+						  var regex = new RegExp("^[0-9]+$");
+						  var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+						  if (!regex.test(key)) {
+						    event.preventDefault();
+						    return false;
+						  }
+					});		
+				}
+				if(this.value=="2"){
+					$("#numero_documento_"+id[2]).val('')
+					$("#numero_documento_"+id[2]).prop('disabled', false)
+					$("#numero_documento_"+id[2]).prop('maxlength', 10)
+					$("#numero_documento_"+id[2]).on('input', function (e) {
+						if (!/^[a-zA-Z]{3}[0-9]{6}[a-zA-Z]?$/i.test(this.value)) {
+							$("#numero_documento_"+id_valor).css("border-color", "red");
+						} 
+						if (/^[a-zA-Z]{3}[0-9]{6}[a-zA-Z]?$/i.test(this.value)) {
+							$("#numero_documento_"+id_valor).css("border-color", "green");
+						} 
+					});
+				}
+	        	
+	          });
+			$(".boton").submit(function(event) {
+				console.log("asdasd")
+			})
+	        $(".formulario").submit(function(event) {
+	        	if($("#contenedor_ida div")){
+		        	if(!$("#contenedor_ida div").length>0){
+						alert("Se necesita almenos un asiento de Ida seleccionado");
+			            event.preventDefault();
+		        	}
+	        	}
+	        	if($("#contenedor_retorno div")){
+		        	if(!$("#contenedor_retorno div").length>0){
+						alert("Se necesita almenos un asiento de Retorno seleccionado");
+			            event.preventDefault();
+		        	}
+	        	}
+	        	return true;
+	          });
+	      });
+		
+			function tipo_edadCambio(tipo_edad,id_valor) {
+				contenedor_archivo = document.getElementById("contenedor_archivo_"+id_valor);	
+				console.log( tipo_edad.value);	
+				if(tipo_edad.value=="1"){
+					contenedor_archivo.innerHTML +=`
+						<div class="col-md-12 form-group" id="contenedor_permiso_notarial_${id_valor}">
+						    <label for="permiso_notarial_${id_valor}">Permiso Notarial</label>
+						  	<input type="file" class="form-control" id="permiso_notarial_${id_valor}" required="required">
+						</div>
+						`;
+				}else if($('#contenedor_permiso_notarial_'+id_valor)){
+					 $('#contenedor_permiso_notarial_'+id_valor).remove();
+				}
+			  }
+			
+			function estado_rucCambio(checkbox_ruc,id_valor){
+				contenedor_ruc = document.getElementById("contenedor_ruc_"+id_valor);
+				if(checkbox_ruc.value=="true"){
+					checkbox_ruc.value = "false";
+				}else{
+					checkbox_ruc.value = "true";
+				}
+				console.log(id_valor);
+				if(checkbox_ruc.value=="true"){
+					contenedor_ruc.innerHTML +=`
+	    				  <div class="col-md-5 form-group" id="contenedor_numero_ruc_${id_valor}">
+						    <label for="numero_ruc">N°Ruc</label>
+						  	<input type="text" class="form-control solo-numero" id="numero_ruc_${id_valor}" required="required" placeholder="numero de ruc">
+						  </div>
+						  <div class="col-md-5 form-group" id="contenedor_razon_social_${id_valor}">
+						    <label for="razon_social">Razón social</label>
+						  	<input type="text" class="form-control" id="razon_social_${id_valor}" required="required" placeholder="razon social">
+						  </div>
+						  <div class="col-md-12 form-group" id="contenedor_direccion_${id_valor}">
+						    <label for="direccion">Dirección</label>
+						  	<input type="text" class="form-control" id="direccion_${id_valor}" required="required" placeholder="direccion">
+						  </div>
+						  `;
+	    		}else{
+	    			document.getElementById('contenedor_numero_ruc_'+id_valor).remove();
+					document.getElementById('contenedor_razon_social_'+id_valor).remove();
+					document.getElementById('contenedor_direccion_'+id_valor).remove();
+			    }
+			}
+			
+			
+		</script>
+	</th:block>
+	
+</body>
+</html>

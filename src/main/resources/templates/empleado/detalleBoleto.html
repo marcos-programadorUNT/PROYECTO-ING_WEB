@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"> <!-- ~{nombre del folder/nombre del archivo html} -->
+
+<head layout:fragment="layout/layout :: head">
+    <meta charset="ISO-8859-1">
+    <!-- <title th:text="${titulo}"></title> -->
+    <link rel="stylesheet" th:href="@{/assets/css/misEstilos.css}">
+    <link rel="stylesheet" th:href="@{/assets/select/bootstrap-select.min.css}">
+</head>
+
+<th:block th:if="${sesion}" layout:fragment="usuario">[[${sesion.nombre}]] [[${sesion.apellido}]]</th:block>
+<body>
+
+<div layout:fragment="page-title">
+</div>
+
+<div layout:fragment="page-content">
+
+    <th:block th:if="${boleto}">
+        <div class="card">
+            <div class="card-header card-encabezado" th:text="'BOLETO DE LA PERSONA: '+${boleto.cliente.nombres}+' '+${boleto.cliente.apellidoPaterno}+' '+${boleto.cliente.apellidoMaterno}">
+            </div>
+            <div class="card-body">
+                <form th:action="@{/empleado/actualizarAbordaje/}" th:object="${boleto}" method="post">
+                    <input type="hidden" class="form-control" th:field="*{idBoleto}">
+                    <input type="hidden" class="form-control" th:field="*{estado}">
+                    <input type="hidden" class="form-control" th:field="*{fechaEmision}">
+                    <input type="hidden" class="form-control" th:field="*{costoAsiento}">
+                    <input type="hidden" class="form-control" th:field="*{descuentoAsiento}">
+                    <input type="hidden" class="form-control" th:field="*{cronograma_viaje}">
+                    <input type="hidden" class="form-control" th:field="*{cliente}">
+                    <input type="hidden" class="form-control" th:field="*{rutaCarnetVacunacion}">
+                    <input type="hidden" class="form-control" th:field="*{rutaPermisoNotarial}">
+                    <input type="hidden" class="form-control" th:field="*{asiento}">
+
+                    <div class="mb-3">
+                        <h5>DATOS DEL CLIENTE</h5>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nro Documento</label>
+                        <input type="text" class="form-control" th:value="${boleto.cliente.nroDocumento}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" th:value="${boleto.cliente.nombres}+' '+${boleto.cliente.apellidoPaterno}+' '+${boleto.cliente.apellidoMaterno}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Carnet de vacunacion</label>
+                        <br>
+                        <a class="btn btn-warning" th:href="@{/descargarArchivo/}+${boleto.rutaCarnetVacunacion}"> <i class="fas fa-download" aria-hidden="true"></i> Descargar carnet de vacunacion</a>
+                    </div>
+                    <th:block th:if="${boleto.rutaPermisoNotarial!=null}">
+                        <div class="mb-3">
+                            <label class="form-label" style="color:red">Permiso notarial (CUIDADO ES MENOR DE EDAD)</label>
+                            <br>
+                            <a class="btn btn-success" th:href="@{/descargarArchivo/}+${boleto.rutaPermisoNotarial}"> <i class="fas fa-download" aria-hidden="true"></i> Descargar permiso notarial</a>
+                        </div>
+                    </th:block>
+                    <br>
+                    <div class="mb-3">
+                        <h5>DATOS DEL VIAJE</h5>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ruta Origen-Destino</label>
+                        <input type="text" class="form-control" th:value="${boleto.cronograma_viaje.ruta.lugarOrigen.descripcion}+' - '+${boleto.cronograma_viaje.ruta.lugarDestino.descripcion}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Asiento</label>
+                        <input type="text" class="form-control" th:value="'Asiento: '+${boleto.asiento.idAsiento}" readonly>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <h5>EMBARQUE</h5>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Si viajo?</label>
+                        <select class="form-select" th:field="*{siAbordo}">
+                            <option value="false">No</option>
+                            <option value="true">Si</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <br>
+
+                </form>
+            </div>
+        </div>
+    </th:block>
+
+
+
+
+
+
+</div>
+
+
+<!--OTRO SCRIPTS PARA PAGINAS-->
+<th:block layout:fragment="page-scripts">
+
+    <script th:src="@{/assets/select/bootstrap-select.min.js}"></script>
+    <script type="text/javascript">
+
+
+
+    </script>
+
+</th:block>
+</body>
+</html>

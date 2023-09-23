@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/cliente/layout}">
+<head layout:fragment="head">
+	<meta charset="UTF-8">
+
+</head>
+
+<body>
+	
+	 <div layout:fragment="content" class=" align-items-center justify-content-center justify-content-xl-between">
+	 <form th:action="@{/venta-asiento}" id="form">
+		<div class="row card">
+			<div class="col-10 mx-auto text-center py-3 h6">
+			RUTA DE LA VENTA DE PASAJE
+			</div>
+			<div class="col-10 mx-auto ">
+				<div class="row text-center">
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta listo"><i class="icon fa-solid fa-bus fa-3x"></i></div>
+						<div class="">Seleccionar Bus</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-tablet fa-3x"></i></div>
+						<div class="">Seleccionar Asiento</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-user fa-3x"></i></div>
+						<div class="">Registrar Pasajeros</div>
+					</div>
+					<div class="col-md-3 ruta-venta  py-1">
+						<div class="icono-ruta-venta"><i class="icon fa-solid fa-credit-card fa-3x"></i></div>
+						<div class="">Realizar Pago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-12 d-flex justify-content-between align-items-center">
+				<div>
+					<a class="button button-md button-default-outline-2 button-ujarak" th:href="@{/}"><i class="icon fa-solid fa-caret-left"></i> Anterior </a>
+				</div>
+				<div class="text-center h5">
+					Seleccionar Bus
+				</div>
+				<div>
+					<button type="submit" class="button button-md button-default-outline-2 button-ujarak">Siguiente <i class="icon fa-solid fa-caret-right"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="row card my-0 py-2">
+			<div class="row">
+			
+			<div class="col-md-6">
+				<table class="table">
+				 <thead class="bg-fondo">
+				    <tr>
+				      <th scope="col" colspan="4"><i class=" icon fa-solid fa-arrow-up "></i> BUSES DE IDA: TRUJILLO - LIMA</th>
+				    </tr>
+				  </thead>
+				 <thead>
+				    <tr>
+				      <th class="text-center" scope="col" colspan="4">MIERCOLES 24 DE JULIO DE 2022</th>
+				    </tr>
+				  </thead>
+				  <thead class="text-center">
+				    <tr>
+				      <th scope="col"></th>
+				      <th scope="col">SALIDA</th>
+				      <th scope="col">ASIENTOS</th>
+				      <th scope="col">PRECIO</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="1" name="opc-ida" value="1">
+					  </th>
+				      <td>12 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (5 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (41 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 70.00</strong></p>
+				      	<p>Maximo <strong>S/. 100.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="2" name="opc-ida" value="2">
+					  </th>
+				      <td>8 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (1 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (30 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 85.00</strong></p>
+				      	<p>Maximo <strong>S/. 120.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="3" name="opc-ida" value="3">
+					  </th>
+				      <td>8:15 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (3 Libres)</p>
+				      	<p>Piso 2 : Super CAMA 180° <i class="color-texto icon fa-solid fa-arrow-right"></i> (17 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 110.00</strong></p>
+				      	<p>Maximo <strong>S/. 150.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="4" name="opc-ida" value="4">
+					  </th>
+				      <td>12 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (5 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (41 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 70.00</strong></p>
+				      	<p>Maximo <strong>S/. 100.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="5" name="opc-ida" value="5">
+					  </th>
+				      <td>8 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (1 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (30 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 85.00</strong></p>
+				      	<p>Maximo <strong>S/. 120.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="6" name="opc-ida" value="6">
+					  </th>
+				      <td>8:15 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (3 Libres)</p>
+				      	<p>Piso 2 : Super CAMA 180° <i class="color-texto icon fa-solid fa-arrow-right"></i> (17 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 110.00</strong></p>
+				      	<p>Maximo <strong>S/. 150.00</strong></p>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<table class="table">
+				 <thead class="bg-fondo">
+				    <tr>
+				      <th scope="col" colspan="4"><i class=" icon fa-solid fa-arrow-down "></i> BUSES DE RETORNO: LIMA - TRUJILLO</th>
+				    </tr>
+				  </thead>
+				 <thead>
+				    <tr>
+				      <th class="text-center" scope="col" colspan="4">MIERCOLES 30 DE JULIO DE 2022</th>
+				    </tr>
+				  </thead>
+				  <thead class="text-center">
+				    <tr>
+				      <th scope="col"></th>
+				      <th scope="col">SALIDA</th>
+				      <th scope="col">ASIENTOS</th>
+				      <th scope="col">PRECIO</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="1" name="opc-retorno" value="1">
+					  </th>
+				      <td>12 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (5 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (41 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 70.00</strong></p>
+				      	<p>Maximo <strong>S/. 100.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="2" name="opc-retorno" value="2">
+					  </th>
+				      <td>8 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (1 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (30 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 85.00</strong></p>
+				      	<p>Maximo <strong>S/. 120.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="3" name="opc-retorno" value="3">
+					  </th>
+				      <td>8:15 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (3 Libres)</p>
+				      	<p>Piso 2 : Super CAMA 180° <i class="color-texto icon fa-solid fa-arrow-right"></i> (17 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 110.00</strong></p>
+				      	<p>Maximo <strong>S/. 150.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="4" name="opc-retorno" value="4">
+					  </th>
+				      <td>12 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (5 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (41 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 70.00</strong></p>
+				      	<p>Maximo <strong>S/. 100.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="5" name="opc-retorno" value="5">
+					  </th>
+				      <td>8 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (1 Libres)</p>
+				      	<p>Piso 2 : SEMI CAMA 140° <i class="color-texto icon fa-solid fa-arrow-right"></i> (30 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 85.00</strong></p>
+				      	<p>Maximo <strong>S/. 120.00</strong></p>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">
+				      	<input type="radio" id="6" name="opc-retorno" value="6">
+					  </th>
+				      <td>8:15 : 00 pm</td>
+				      <td>
+				      	<p>Piso 1 : SOFA CAMA 160° <i class="color-texto icon fa-solid fa-arrow-right"></i> (3 Libres)</p>
+				      	<p>Piso 2 : Super CAMA 180° <i class="color-texto icon fa-solid fa-arrow-right"></i> (17 Libres)</p>
+					  </td>
+				      <td>
+				      	<p>Minimo <strong>S/. 110.00</strong></p>
+				      	<p>Maximo <strong>S/. 150.00</strong></p>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+	</form>
+    </div>
+	
+	<th:block layout:fragment="scripts">
+		<script>
+		$(function () {
+	        $("#form").submit(function(event) {
+	        	console.log($("input:radio[name=opc-ida]:checked").val())
+	        	if($("input:radio[name=opc-ida]")){
+	        		if( !$("input:radio[name=opc-ida]").is(':checked')){
+						alert("Opcion de Ida necesaria");
+		               	event.preventDefault();
+					}
+	        	}
+				if($("input:radio[name=opc-retorno]")){
+					if(!$("input:radio[name=opc-retorno]").is(':checked')){
+						alert("Opcion de Retorno necesaria");
+		               	event.preventDefault();
+					}
+				}
+	        	return true;
+	          });
+	      });
+		</script>
+	</th:block>
+</body>
+</html>
